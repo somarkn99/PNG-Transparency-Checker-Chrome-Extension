@@ -15,8 +15,10 @@ browserAPI.contextMenus.onClicked.addListener((info, tab) => {
   // Check if the clicked context menu item is our "checkImage" item
   if (info.menuItemId === "checkImage") {
     // Execute the script to check image transparency in the current tab
-    browserAPI.tabs.executeScript(tab.id, {
-      code: `(${checkImageTransparency.toString()})('${info.srcUrl}');`
+    browserAPI.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: checkImageTransparency,
+      args: [info.srcUrl]
     });
   }
 });
